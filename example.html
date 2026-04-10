@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Love 💌</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  /* ===== Music Button ===== */
+.music-control{
+  position:fixed;
+  top:20px;
+  right:20px;
+  width:48px;
+  height:48px;
+  background:rgba(37,99,235,.85);
+  color:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:1000;
+  box-shadow:0 6px 18px rgba(0,0,0,.2);
+}
+
+.music-control.playing{
+  animation:spin 3s linear infinite;
+}
+
+@keyframes spin{
+  from{transform:rotate(0);}
+  to{transform:rotate(360deg);}
+}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Helvetica Neue",sans-serif;
+}
+
+body{
+  background:linear-gradient(to bottom,#cfe9ff,#ffffff);
+  color:#1a1a1a;
+}
+
+/* ===== Falling Hearts ===== */
+.hearts{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+}
+
+.heart{
+  position:absolute;
+  color:rgba(255,120,180,.6);
+  animation:fall linear infinite;
+}
+
+@keyframes fall{
+  from{transform:translateY(-10vh);opacity:0;}
+  10%{opacity:1;}
+  to{transform:translateY(110vh);opacity:0;}
+}
+
+/* ===== Hero ===== */
+.hero{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:3rem;
+  margin-bottom:1rem;
+}
+
+.hero p{
+  opacity:.8;
+}
+
+/* ===== Timeline ===== */
+.timeline{
+  max-width:900px;
+  margin:0 auto;
+  padding:4rem 2rem;
+  position:relative;
+}
+
+.timeline::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:3px;
+  height:100%;
+  background:#93c5fd;
+}
+
+.item{
+  display:flex;
+  margin-bottom:4rem;
+  position:relative;
+}
+
+.item:nth-child(even){
+  flex-direction:row-reverse;
+}
+
+.content{
+  width:45%;
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,90,200,.15);
+  padding:1.4rem;
+}
+
+.date{
+  font-weight:600;
+  color:#2563eb;
+  margin-bottom:.6rem;
+}
+
+.photo{
+  width:100%;
+  aspect-ratio:4 / 5;
+  background:#f1f5f9;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.text{
+  margin-top:1rem;
+  line-height:1.6;
+  color:#334155;
+}
+
+.dot{
+  width:18px;
+  height:18px;
+  background:#2563eb;
+  border-radius:50%;
+  position:absolute;
+  left:50%;
+  top:20px;
+  transform:translateX(-50%);
+}
+
+/* ===== Time ===== */
+.time{
+  text-align:center;
+  padding:4rem 2rem;
+}
+
+.time h2{
+  font-size:3rem;
+  color:#2563eb;
+}
+
+/* ===== Ending ===== */
+.ending{
+  text-align:center;
+  padding:2rem;
+  font-size:.9rem;
+  color:#475569;
+}
+
+/* ===== Letter Section ===== */
+.letter{
+  padding:5rem 1.5rem;
+  background:linear-gradient(to bottom,#ffffff,#eaf4ff);
+  display:flex;
+  justify-content:center;
+  text-align: justify;
+}
+
+.letter-card{
+  max-width:700px;
+  background:#ffffff;
+  border-radius:24px;
+  padding:2.5rem 2rem;
+  box-shadow:0 20px 40px rgba(0,90,200,.15);
+}
+
+.letter-card h2{
+  text-align:center;
+  margin-bottom:2rem;
+  color:#2563eb;
+  font-size:1.8rem;
+}
+
+.letter-card p{
+  line-height:1.9;
+  font-size:1.05rem;
+  color:#334155;
+  white-space:normal;
+}
+
+.signature{
+  margin-top:2.5rem;
+  text-align:right;
+  font-size:.95rem;
+  color:#475569;
+}
+
+/* ===== Mobile ===== */
+@media(max-width:768px){
+  .timeline::before{left:12px;}
+  .item,
+  .item:nth-child(even){
+    flex-direction:column;
+    margin-left:24px;
+  }
+  .content{
+    width:100%;
+  }
+  .dot{
+    left:12px;
+  }
+}
+/*kiss gift*/
+.kiss{
+  padding-left: 420px;
+}
+</style>
+</head>
+
+<body>
+<!-- 🎶 Background Music -->
+<audio id="bgMusic" loop>
+  <source src="img/Joe Hisaishi - Summer.mp3" type="audio/mpeg">
+</audio>
+
+<div class="music-control" id="musicBtn">🎵</div>
+<div class="hearts" id="hearts"></div>
+
+<!-- Hero -->
+<section class="hero">
+  <div>
+    <h1>You Are My VIP lover💖</h1>
+    <p>Every step with you matters</p><br>
+    <p>ꜜScroll down slowlyꜜ</p>
+  </div>
+</section>
+
+<!-- Timeline -->
+<section class="timeline">
+  <!-- 1 -->
+  <div class="item">
+    <span class="dot"></span>
+    <div class="content">
+      <div class="date">My beautiful heart💖</div>
+      <div class="photo"><img src="imgg/a.jpg"></div>
+      <div class="text">How Sweet my heart is</div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="item">
+    <span class="dot"></span>
+    <div class="content">
+      <div class="date">When I Realized I Like You 💕</div>
+      <div class="photo"><img src="imgg\6251132261914841032.jpg"></div>
+      <div class="text">😍😍😍</div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="item">
+    <span class="dot"></span>
+    <div class="content">
+      <div class="date">A Moment I’ll Never Forget ✨</div>
+      <div class="photo"><img src="imgg\6251132261914841033.jpg"></div>
+      <div class="text">🤭🤭🤭</div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="item"><span class="dot"></span><div class="content">
+    <div class="date">Pure Happiness Moment 💛</div>
+    <div class="photo"><img src="imgg\b.jpg"></div>
+    <div class="text">😂😂</div>
+  </div></div>
+
+  <!-- 5 -->
+  <div class="item"><span class="dot"></span><div class="content">
+    <div class="date">Cute Moment 💖</div>
+    <div class="photo"><img src="imgg\6251132261914841034.jpg"></div>
+    <div class="text">💖💖💖💖</div>
+  </div></div>
+
+  <!-- 6 -->
+  <div class="item"><span class="dot"></span><div class="content">
+    <div class="date">Our First Picture Together 📸</div>
+    <div class="photo"><img src="imgg\6251132261914841036.jpg"></div>
+    <div class="text">One Memory Stored🙂😊</div>
+  </div></div>
+
+  <!-- 7 -->
+  <div class="item"><span class="dot"></span><div class="content">
+    <div class="date">Our Happy and Fun Time</div>
+    <div class="photo"><img src="imgg\6251132261914841031.jpg"></div>
+    <div class="text">You are so cute that day I never forgot that image</div>
+  </div></div>
+
+  <!-- 8 -->
+  <div class="item"><span class="dot"></span><div class="content">
+    <div class="date">So cute and like innocent</div>
+    <div class="photo"><img src="imgg\6251132261914841028.jpg"></div>
+    <div class="text">I think at that time mama feel so save and mgmg see till morning mama sleeping</div>
+  </div></div>
+
+  <!-- 9 -->
+  <div class="item"><span class="dot"></span><div class="content">
+    <div class="date">The precious one what I have</div>
+    <div class="photo"><img src="imgg\6251132261914841027.jpg"></div>
+    <div class="text">I have so beautiful one no two in the universe🤗</div>
+  </div></div>
+
+  <!-- 10 -->
+  <div class="item"><span class="dot"></span><div class="content">
+    <div class="date">My valuable one</div>
+    <div class="photo"><img src="imgg\6251132261914841029.jpg"></div>
+    <div class="text">So beautiful, goegious and cute my treasure💖💖</div>
+  </div></div>
+
+  <!-- 11 -->
+  <div class="item"><span class="dot"></span><div class="content">
+    <div class="date">Nevr forgot photo</div>
+    <div class="photo"><img src="imgg\6251132261914841053.jpg"></div>
+    <div class="text">My favorite photo how cute my treasure🫣</div>
+  </div></div>
+
+  <!-- 12 -->
+  <div class="item"><span class="dot"></span><div class="content">
+    <div class="date">Ma Ma who my everything🌍</div>
+    <div class="photo"><img src="imgg\6251132261914841052.jpg"></div>
+    <div class="text">Ma Ma I'll try live with u forever💖💖</div>
+  </div></div>
+
+
+</section>
+
+<section class="time">
+  <h2 id="days"></h2>
+  <p>you can count your anni day since ur anni date</p>
+</section>
+
+<!-- Letter -->
+<section class="letter">
+  <div class="letter-card">
+    <h2>To You 💌</h2>
+
+    <p>
+      Dear Ma Ma,<br>
+
+      This is Only for U.💝<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I don't think I say this enough but you mean so much to me. Every day with you feels a little brighter, a little warmer and a lot more meaningful. You have this way of making even the simplest moments feel special, and I’m so grateful for that.
+
+      I love the way you understand me, even when I can’t find the right words. I love how you make me laugh when I need it most, and how you always seem to know when I just need someone to be there. Being with you feels safe, like I can truly be myself without any fear.
+
+      Thank you for your patience, your kindness and all the little things you do that might seem small but mean everything to me. You’ve become such an important part of my life and I honestly can’t imagine my days without you in them.
+
+      No matter what comes our way, I want you to know that I’m here for you, just like you’ve always been there for me. I care about you more than words can fully express.
+
+    </p>
+
+    <div class="signature">
+      —— Your Lovely Mg Mg .......<br>This is not AI generated Text😏
+
+    </div>
+  </div>
+</section>
+
+<section class="kiss">
+  <div class="bear_kiss">
+    <img src="imgg\kiss.gif">
+  </div>
+</section>
+
+<section class="ending">
+  <p>This page is made only for you ❤️</p>
+</section>
+
+<script>
+/* Hearts */
+const hearts=document.getElementById("hearts");
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText="❤";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=Math.random()*20+10+"px";
+  h.style.animationDuration=Math.random()*5+5+"s";
+  hearts.appendChild(h);
+  setTimeout(()=>h.remove(),10000);
+},300);
+
+/* Time */
+const start=new Date("2025-06-24");
+const days=Math.floor((new Date()-start)/86400000);
+document.getElementById("days").innerText=days+" Days";
+</script>
+<script>
+  const music = document.getElementById("bgMusic");
+  const musicBtn = document.getElementById("musicBtn");
+  
+  /* 第一次点击页面 → 自动播放 */
+  document.addEventListener("click", () => {
+    music.play().catch(()=>{});
+    musicBtn.classList.add("playing");
+  }, { once: true });
+  
+  /* 手动开关 */
+  musicBtn.onclick = (e) => {
+    e.stopPropagation();
+    if (music.paused) {
+      music.play();
+      musicBtn.classList.add("playing");
+    } else {
+      music.pause();
+      musicBtn.classList.remove("playing");
+    }
+  };
+  </script>
+
+</body>
+</html>

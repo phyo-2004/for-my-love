@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background: radial-gradient(circle,#2a003f,#0a0015);
+  color:white;
+  overflow:hidden;
+}
+
+.container{transition: transform 1s ease;}
+
+.section{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+.btn{
+  margin-top:15px;
+  padding:12px 25px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#ff4d9d,#7b2cbf);
+  color:white;
+  cursor:pointer;
+}
+
+input{
+  padding:10px;
+  border-radius:20px;
+  border:none;
+  text-align:center;
+  margin-top:10px;
+}
+input:focus{
+  outline:none;
+  box-shadow:0 0 10px #ff4d9d;
+}
+
+.lock{font-size:70px;transition:0.6s;}
+.unlock{transform: scale(1.6) rotate(15deg);}
+
+/* ENVELOPE (CLEAN STYLE) */
+/* ENVELOPE BODY */
+.envelope{
+  width:260px;
+  height:170px;
+  position:relative;
+  cursor:pointer;
+}
+
+/* BASE RECTANGLE */
+.envelope .base{
+  width:100%;
+  height:100%;
+  background:#ff4d9d;
+  border-radius:10px;
+  position:absolute;
+  bottom:0;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* LEFT FLAP */
+.envelope .left{
+  position:absolute;
+  width:0;
+  height:0;
+  border-top:85px solid transparent;
+  border-bottom:85px solid transparent;
+  border-right:130px solid #ff6fae;
+  left:0;
+  top:0;
+}
+
+/* RIGHT FLAP */
+.envelope .right{
+  position:absolute;
+  width:0;
+  height:0;
+  border-top:85px solid transparent;
+  border-bottom:85px solid transparent;
+  border-left:130px solid #ff6fae;
+  right:0;
+  top:0;
+}
+
+/* TOP FLAP */
+.envelope .top{
+  position:absolute;
+  width:0;
+  height:0;
+  border-left:130px solid transparent;
+  border-right:130px solid transparent;
+  border-bottom:85px solid #ff85c1;
+  top:0;
+  transform-origin:bottom;
+  transition:0.8s;
+  z-index:3;
+}
+
+/* OPEN FLAP */
+.envelope.open .top{
+  transform:rotateX(180deg);
+}
+
+/* LONG LETTER (REAL PAPER STYLE) */
+.letter{
+  position:absolute;
+  width:220px;
+  max-height:80px;
+  background:#fffaf0;
+  color:#333;
+  padding:20px;
+  border-radius:10px;
+  font-family:'Dancing Script',cursive;
+  text-align:left;
+  line-height:1.6;
+
+  left:50%;
+  transform:translateX(-50%) translateY(40px);
+  opacity:0;
+
+  box-shadow:0 15px 30px rgba(0,0,0,0.3);
+  transition:1.2s ease;
+  overflow:hidden;
+}
+
+/* OPEN → EXPAND LIKE PAPER */
+.envelope.open .letter{
+  transform:translateX(-50%) translateY(-180px);
+  opacity:1;
+  max-height:400px;
+}
+
+/* HEARTS */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  animation: floatUp linear infinite;
+}
+@keyframes floatUp{
+  to{transform:translateY(-110vh);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+<div class="container" id="container">
+
+<!-- 1 INTRO -->
+<div class="section">
+<h1>💜 Hey you Ma Ma 💜</h1>
+<p>This is something special for you 😍</p>
+<button class="btn" onclick="next()">Tap to Begin</button>
+</div>
+
+<!-- 2 LOCK -->
+<div class="section">
+<div id="lock" class="lock">🔒</div>
+
+<h2>Unlock with our special date 💖</h2>
+
+<p id="hint">Hint: The day we became us 💕</p>
+
+<input type="text" id="password" placeholder="dd/mm/yyyy">
+
+<p id="errorMsg" style="color:#ff9aa2;"></p>
+
+<button class="btn" onclick="unlock()">Open</button>
+<button class="btn" onclick="nextHint()">Need Hint? 💡</button>
+</div>
+
+<!-- 3 LETTER -->
+<div class="section">
+<h2 id="tapText">💌 Tap the letter</h2>
+
+<div class="envelope" onclick="openLetter(this)">
+
+  <div class="base"></div>
+  <div class="left"></div>
+  <div class="right"></div>
+  <div class="top"></div>
+
+  <div class="letter">
+  <p>
+    I don’t say this enough...  
+    but you changed my life 💖
+  </p>
+
+  <p>
+    The way you smile,  
+    the way you care,  
+    the way you make everything better...
+  </p>
+
+  <p>
+    Being with you feels like home.
+  </p>
+
+  <p>
+    You are my favorite person.  
+    Always and forever 💕
+  </p>
+</div>
+
+</div>
+</div>
+
+<script>
+let index=0;
+const container=document.getElementById("container");
+
+function next(){
+  index++;
+  container.style.transform=`translateY(-${index*100}vh)`;
+}
+
+/* HINT SYSTEM */
+let hints=[
+"Hint: The day we became us 💕",
+"Hint: Month is June 🌸",
+"Hint: Year is 2025 💫",
+"Final hint: 28/6/2025 ❤️"
+];
+
+let hintIndex=0;
+
+function nextHint(){
+  hintIndex++;
+  if(hintIndex < hints.length){
+    document.getElementById("hint").innerHTML = hints[hintIndex];
+  }
+}
+
+/* PASSWORD */
+function unlock(){
+  let input=document.getElementById("password").value.trim();
+  let error=document.getElementById("errorMsg");
+  let lock=document.getElementById("lock");
+
+  if(input==="28/6/2025"){
+    error.innerHTML="";
+    lock.classList.add("unlock");
+    lock.innerHTML="🔓";
+    setTimeout(next,1000);
+  }else{
+    error.innerHTML="💔 That's not our date... I'm sad 😔 Try again.";
+  }
+}
+
+/* ENVELOPE OPEN */
+function openLetter(el){
+  el.classList.add("open");
+
+  // hide "Tap the letter"
+  document.getElementById("tapText").style.opacity = "0";
+
+  setTimeout(()=>{
+    window.location.href="example.html";
+  },3000);
+}
+
+/* HEARTS */
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(Math.random()*20+10)+"px";
+  h.style.animationDuration=(Math.random()*3+3)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+},300);
+</script>
+
+</body>
+</html>
